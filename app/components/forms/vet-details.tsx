@@ -9,17 +9,10 @@ import { Input } from '#app/components/ui/input'
 import { Button } from '#app/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '../ui/select'
 import { SelectValue } from '@radix-ui/react-select'
-import {
-  getFormProps,
-  getInputProps,
-  getSelectProps,
-  SubmissionResult,
-  useForm,
-} from '@conform-to/react'
+import type { SubmissionResult } from '@conform-to/react'
+import { getFormProps, getInputProps, getSelectProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
 import { VetSchema } from '#app/models/veterinarian.interface.ts'
-
-export const ROUTE_PATH = '/onboarding/vet' as const
 
 type VetDetailsProps = {
   lastResult?: SubmissionResult<string[]>
@@ -108,7 +101,7 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
         <label htmlFor="fullName">Full name</label>
         <Input
           placeholder="Full name"
-          autoComplete="off"
+          autoComplete="name"
           defaultValue={fullName.value || ''}
           className={`bg-transparent ${
             fullName.errors && 'border-destructive focus-visible:ring-destructive'
