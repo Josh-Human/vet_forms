@@ -8,7 +8,14 @@ import { ROUTE_PATH as PRACTICE_PATH } from '#app/routes/onboarding+/practice'
 
 export function Header() {
   const location = useLocation()
-  const allowedLocations = [DASHBOARD_PATH, BILLING_PATH, SETTINGS_PATH, ADMIN_PATH]
+  const allowedLocations = [
+    DASHBOARD_PATH,
+    BILLING_PATH,
+    SETTINGS_PATH,
+    ADMIN_PATH,
+    VET_PATH,
+    PRACTICE_PATH,
+  ]
 
   const headerTitle = () => {
     if (location.pathname === DASHBOARD_PATH) return 'Dashboard'

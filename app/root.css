@@ -106,3 +106,11 @@ img {
   background-image: linear-gradient(90deg, var(--muted-grid) 1px, transparent 0),
     linear-gradient(180deg, var(--muted-grid) 1px, transparent 0);
 }
+
+.SelectTrigger[data-placeholder] {
+  color: hsl(var(--muted-foreground));
+}
+
+label {
+  font-weight: 500;
+}

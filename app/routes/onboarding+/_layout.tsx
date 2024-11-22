@@ -9,6 +9,7 @@ import { ROUTE_PATH as ONBOARDING_USERNAME_PATH } from '#app/routes/onboarding+/
 import { buttonVariants } from '#app/components/ui/button.tsx'
 import { cn } from '#app/utils/misc.ts'
 import { Header } from '#app/components/header.tsx'
+import { Separator } from '#app/components/ui/separator.tsx'
 
 export const ROUTE_PATH = '/onboarding' as const
 export const VET_PATH = '/onboarding/vet' as const
@@ -32,9 +33,8 @@ export default function Onboarding() {
   const isVetPath = location.pathname === VET_PATH
   const isPracticePath = location.pathname === PRACTICE_PATH
   return (
-    <div className="relative flex h-screen w-full bg-card">
-      <Header />
-      <div className="flex h-full w-full px-6 py-8">
+    <div className="relative flex h-screen w-full flex-col">
+      <div className="flex h-full w-full bg-secondary px-6 py-8">
         <div className="mx-auto flex h-full w-full max-w-screen-xl gap-12">
           <div className="hidden w-full max-w-64 flex-col gap-0.5 lg:flex">
             <Link
@@ -47,7 +47,7 @@ export default function Onboarding() {
                 className={cn(
                   `text-sm text-primary/80 ${isVetPath && 'font-medium text-primary'}`,
                 )}>
-                Vet details
+                Veterinarian details
               </span>
             </Link>
             <Link
@@ -64,7 +64,7 @@ export default function Onboarding() {
               </span>
             </Link>
           </div>
-
+          <Separator orientation="vertical"></Separator>
           <Outlet />
         </div>
       </div>
