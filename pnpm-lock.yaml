@@ -75,14 +75,17 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       i18next:
-        specifier: ^23.16.5
-        version: 23.16.5
+        specifier: ^23.16.8
+        version: 23.16.8
       i18next-browser-languagedetector:
         specifier: ^8.0.0
         version: 8.0.0
       isbot:
         specifier: ^4.1.0
         version: 4.4.0
+      libphonenumber-js:
+        specifier: ^1.11.15
+        version: 1.11.15
       lucide-react:
         specifier: ^0.460.0
         version: 0.460.0(react@18.3.1)
@@ -103,7 +106,7 @@ importers:
         version: 2.1.6(@swc/helpers@0.5.2)(eslint@8.57.1)
       react-i18next:
         specifier: ^15.0.3
-        version: 15.1.0(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 15.1.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       remix-auth:
         specifier: ^3.7.0
         version: 3.7.0(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@remix-run/server-runtime@2.14.0(typescript@5.6.3))
@@ -115,7 +118,7 @@ importers:
         version: 3.4.2(remix-auth@3.7.0(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@remix-run/server-runtime@2.14.0(typescript@5.6.3)))
       remix-i18next:
         specifier: ^6.4.1
-        version: 6.4.1(@remix-run/cloudflare@2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3))(@remix-run/deno@2.13.1(typescript@5.6.3))(@remix-run/node@2.13.1(typescript@5.6.3))(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(i18next@23.16.5)(react-i18next@15.1.0(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        version: 6.4.1(@remix-run/cloudflare@2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3))(@remix-run/deno@2.13.1(typescript@5.6.3))(@remix-run/node@2.13.1(typescript@5.6.3))(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(i18next@23.16.8)(react-i18next@15.1.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       remix-utils:
         specifier: 7.0.0-pre.4
         version: 7.0.0-pre.4(@cloudflare/workers-types@4.20241022.0)(react-dom@18.3.1(react@18.3.1))(typescript@5.6.3)
@@ -3641,8 +3644,8 @@ packages:
   i18next-browser-languagedetector@8.0.0:
     resolution: {integrity: sha512-zhXdJXTTCoG39QsrOCiOabnWj2jecouOqbchu3EfhtSHxIB5Uugnm9JaizenOy39h7ne3+fLikIjeW88+rgszw==}
 
-  i18next@23.16.5:
-    resolution: {integrity: sha512-KTlhE3EP9x6pPTAW7dy0WKIhoCpfOGhRQlO+jttQLgzVaoOjWwBWramu7Pp0i+8wDNduuzXfe3kkVbzrKyrbTA==}
+  i18next@23.16.8:
+    resolution: {integrity: sha512-06r/TitrM88Mg5FdUXAKL96dJMzgqLE5dv3ryBAra4KCwD9mJ4ndOTS95ZuymIGoE+2hzfdaMak2X11/es7ZWg==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -4010,6 +4013,9 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
+
+  libphonenumber-js@1.11.15:
+    resolution: {integrity: sha512-M7+rtYi9l5RvMmHyjyoF3BHHUpXTYdJ0PezZGHNs0GyW1lO+K7jxlXpbdIb7a56h0nqLYdjIw+E+z0ciGaJP7g==}
 
   lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -9913,7 +9919,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
-  i18next@23.16.5:
+  i18next@23.16.8:
     dependencies:
       '@babel/runtime': 7.26.0
 
@@ -10247,6 +10253,8 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  libphonenumber-js@1.11.15: {}
 
   lilconfig@2.1.0: {}
 
@@ -11291,11 +11299,11 @@ snapshots:
       - utf-8-validate
       - webpack-cli
 
-  react-i18next@15.1.0(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-i18next@15.1.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.0
       html-parse-stringify: 3.0.1
-      i18next: 23.16.5
+      i18next: 23.16.8
       react: 18.3.1
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
@@ -11510,12 +11518,12 @@ snapshots:
       fs-extra: 11.2.0
       minimatch: 5.1.6
 
-  remix-i18next@6.4.1(@remix-run/cloudflare@2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3))(@remix-run/deno@2.13.1(typescript@5.6.3))(@remix-run/node@2.13.1(typescript@5.6.3))(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(i18next@23.16.5)(react-i18next@15.1.0(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  remix-i18next@6.4.1(@remix-run/cloudflare@2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3))(@remix-run/deno@2.13.1(typescript@5.6.3))(@remix-run/node@2.13.1(typescript@5.6.3))(@remix-run/react@2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(i18next@23.16.8)(react-i18next@15.1.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
     dependencies:
       '@remix-run/react': 2.14.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)
-      i18next: 23.16.5
+      i18next: 23.16.8
       react: 18.3.1
-      react-i18next: 15.1.0(i18next@23.16.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next: 15.1.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     optionalDependencies:
       '@remix-run/cloudflare': 2.13.1(@cloudflare/workers-types@4.20241022.0)(typescript@5.6.3)
       '@remix-run/deno': 2.13.1(typescript@5.6.3)
