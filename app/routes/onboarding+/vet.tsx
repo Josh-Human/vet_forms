@@ -10,8 +10,9 @@ import { requireSessionUser } from '#app/modules/auth/auth.server'
 import { validateCSRF } from '#app/utils/csrf.server'
 import { checkHoneypot } from '#app/utils/honeypot.server'
 import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
-import VetDetails, { IVet, VetSchema } from '#app/components/forms/vet-details.tsx'
+import VetDetails from '#app/components/forms/vet-details.tsx'
 import { useActionData } from '@remix-run/react'
+import { VetSchema } from '#app/models/veterinarian.interface.ts'
 
 export const ROUTE_PATH = '/onboarding/vet' as const
 
@@ -54,7 +55,7 @@ export default function OnboardingVetDetails() {
           AHCs in the future.
         </p>
       </div>
-      <VetDetails lastResult={lastResult} errors={lastResult?.error} />
+      <VetDetails lastResult={lastResult} />
     </div>
   )
 }

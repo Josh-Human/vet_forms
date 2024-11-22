@@ -3,7 +3,6 @@ import { Form } from '@remix-run/react'
 import { useHydrated } from 'remix-utils/use-hydrated'
 import { AuthenticityTokenInput } from 'remix-utils/csrf/react'
 import { HoneypotInputs } from 'remix-utils/honeypot/react'
-import { z } from 'zod'
 import { Loader2 } from 'lucide-react'
 import { useIsPending } from '#app/utils/misc'
 import { Input } from '#app/components/ui/input'
@@ -18,32 +17,15 @@ import {
   useForm,
 } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
+import { VetSchema } from '#app/models/veterinarian.interface.ts'
 
 export const ROUTE_PATH = '/onboarding/vet' as const
 
-export const VetSchema = z.object({
-  fullName: z
-    .string({ required_error: 'Please enter your name' })
-    .min(3, { message: 'Name must be a least 3 characters' })
-    .trim()
-    .regex(/^[a-zA-Z]+$/, {
-      message: 'Username may only contain alphanumeric characters.',
-    }),
-  primaryQualification: z
-    .string({ required_error: 'Please select your primary qualification' })
-    .trim(),
-  title: z.string({ required_error: 'Please select a title' }).trim(),
-})
-
-export type IVet = z.infer<typeof VetSchema>
-export type IVetErrors = Partial<Record<keyof IVet, string[]>>
-
 type VetDetailsProps = {
   lastResult?: SubmissionResult<string[]>
-  errors?: IVetErrors
 }
 
-export default function VetDetails({ lastResult, errors }: VetDetailsProps) {
+export default function VetDetails({ lastResult }: VetDetailsProps) {
   const titleRef = useRef<HTMLButtonElement>(null)
   const isHydrated = useHydrated()
   const isPending = useIsPending()

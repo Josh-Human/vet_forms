@@ -8,7 +8,6 @@ import { ROUTE_PATH as ONBOARDING_USERNAME_PATH } from '#app/routes/onboarding+/
 // import { Logo } from '#app/components/logo'
 import { buttonVariants } from '#app/components/ui/button.tsx'
 import { cn } from '#app/utils/misc.ts'
-import { Header } from '#app/components/header.tsx'
 import { Separator } from '#app/components/ui/separator.tsx'
 
 export const ROUTE_PATH = '/onboarding' as const
