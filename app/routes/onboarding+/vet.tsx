@@ -47,7 +47,7 @@ export default function OnboardingVetDetails() {
   const lastResult = useActionData<typeof action>()
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-96 flex-col items-center">
+    <div className="mx-auto flex h-full w-full max-w-96 flex-col items-center justify-center">
       <div className="mb-4 flex flex-col gap-2">
         <h3 className="text-2xl font-medium text-primary">Veterinarian details</h3>
         <p className="text-base font-normal text-primary/60">

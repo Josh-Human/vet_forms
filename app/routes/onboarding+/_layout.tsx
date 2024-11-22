@@ -9,6 +9,7 @@ import { ROUTE_PATH as ONBOARDING_USERNAME_PATH } from '#app/routes/onboarding+/
 import { buttonVariants } from '#app/components/ui/button.tsx'
 import { cn } from '#app/utils/misc.ts'
 import { Separator } from '#app/components/ui/separator.tsx'
+import Layout from '#app/components/side-image.tsx'
 
 export const ROUTE_PATH = '/onboarding' as const
 export const VET_PATH = '/onboarding/vet' as const
@@ -32,49 +33,50 @@ export default function Onboarding() {
   const isVetPath = location.pathname === VET_PATH
   const isPracticePath = location.pathname === PRACTICE_PATH
   return (
-    <div className="relative flex h-screen w-full flex-col">
-      <div className="flex h-full w-full bg-secondary px-6 py-8">
-        <div className="mx-auto flex h-full w-full max-w-screen-xl gap-12">
-          <div className="hidden w-full max-w-64 flex-col gap-0.5 lg:flex">
-            <Link
-              to={VET_PATH}
-              prefetch="intent"
-              className={cn(
-                `${buttonVariants({ variant: 'ghost' })} ${isVetPath && 'bg-primary/5'} justify-start rounded-md`,
-              )}>
-              <span
-                className={cn(
-                  `text-sm text-primary/80 ${isVetPath && 'font-medium text-primary'}`,
-                )}>
-                Veterinarian details
-              </span>
-            </Link>
-            <Link
-              to={PRACTICE_PATH}
-              prefetch="intent"
-              className={cn(
-                `${buttonVariants({ variant: 'ghost' })} ${isPracticePath && 'bg-primary/5'} justify-start rounded-md`,
-              )}>
-              <span
-                className={cn(
-                  `text-sm text-primary/80 ${isPracticePath && 'font-medium text-primary'}`,
-                )}>
-                Practice details
-              </span>
-            </Link>
-          </div>
-          <Separator orientation="vertical"></Separator>
-          <Outlet />
-        </div>
-      </div>
-      {/* <div className="absolute left-1/2 top-8 mx-auto -translate-x-1/2 transform justify-center">
+    <Layout element={<Outlet />}></Layout>
+    // <div className="relative flex h-screen w-full flex-col">
+    //   <div className="flex h-full w-full bg-secondary px-6 py-8">
+    //     <div className="mx-auto flex h-full w-full max-w-screen-xl gap-12">
+    //       <div className="hidden w-full max-w-64 flex-col gap-0.5 lg:flex">
+    //         <Link
+    //           to={VET_PATH}
+    //           prefetch="intent"
+    //           className={cn(
+    //             `${buttonVariants({ variant: 'ghost' })} ${isVetPath && 'bg-primary/5'} justify-start rounded-md`,
+    //           )}>
+    //           <span
+    //             className={cn(
+    //               `text-sm text-primary/80 ${isVetPath && 'font-medium text-primary'}`,
+    //             )}>
+    //             Veterinarian details
+    //           </span>
+    //         </Link>
+    //         <Link
+    //           to={PRACTICE_PATH}
+    //           prefetch="intent"
+    //           className={cn(
+    //             `${buttonVariants({ variant: 'ghost' })} ${isPracticePath && 'bg-primary/5'} justify-start rounded-md`,
+    //           )}>
+    //           <span
+    //             className={cn(
+    //               `text-sm text-primary/80 ${isPracticePath && 'font-medium text-primary'}`,
+    //             )}>
+    //             Practice details
+    //           </span>
+    //         </Link>
+    //       </div>
+    //       <Separator orientation="vertical"></Separator>
+    //       <Outlet />
+    //     </div>
+    //   </div>
+    /* <div className="absolute left-1/2 top-8 mx-auto -translate-x-1/2 transform justify-center">
         <Logo />
       </div>
       <div className="z-10 h-screen w-screen">
         <Outlet />
       </div>
       <div className="base-grid fixed h-screen w-screen opacity-40" />
-      <div className="fixed bottom-0 h-screen w-screen bg-gradient-to-t from-[hsl(var(--card))] to-transparent" /> */}
-    </div>
+      <div className="fixed bottom-0 h-screen w-screen bg-gradient-to-t from-[hsl(var(--card))] to-transparent" /> 
+    </div>*/
   )
 }
