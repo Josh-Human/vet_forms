@@ -12,13 +12,15 @@ import { SelectValue } from '@radix-ui/react-select'
 import type { SubmissionResult } from '@conform-to/react'
 import { getFormProps, getInputProps, getSelectProps, useForm } from '@conform-to/react'
 import { getZodConstraint, parseWithZod } from '@conform-to/zod'
+import type { IVet } from '#app/models/veterinarian.interface.ts'
 import { VetSchema } from '#app/models/veterinarian.interface.ts'
 
 type VetDetailsProps = {
   lastResult?: SubmissionResult<string[]>
+  veterinarian?: IVet
 }
 
-export default function VetDetails({ lastResult }: VetDetailsProps) {
+export default function VetDetails({ lastResult, veterinarian }: VetDetailsProps) {
   const titleRef = useRef<HTMLButtonElement>(null)
   const isHydrated = useHydrated()
   const isPending = useIsPending()
@@ -41,9 +43,10 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
     isHydrated && titleRef.current?.focus()
   }, [isHydrated])
 
-  const [form, { fullName, title, primaryQualification }] = useForm({
+  const [form, { fullName, title, qualification }] = useForm({
     lastResult,
     constraint: getZodConstraint(VetSchema),
+    shouldValidate: 'onSubmit',
     shouldRevalidate: 'onInput',
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: VetSchema })
@@ -64,12 +67,13 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
         <label htmlFor="title">Title</label>
         <Select
           onValueChange={(value) => {
-            form.validate()
+            form.validate({ name: title.name })
             setSelectedTitle(value)
           }}
+          defaultValue={veterinarian?.title}
           name="title">
           <SelectTrigger
-            className={`SelectTrigger h-10 rounded border-primary/20 bg-secondary !px-2 hover:border-primary/40 ${
+            className={`SelectTrigger h-10 rounded border-primary/20 !px-2 hover:border-primary/40 ${
               title.errors && 'border-destructive focus-visible:ring-destructive'
             }`}
             {...getSelectProps(title)}
@@ -102,7 +106,7 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
         <Input
           placeholder="Full name"
           autoComplete="name"
-          defaultValue={fullName.value || ''}
+          defaultValue={veterinarian?.fullName}
           className={`bg-transparent ${
             fullName.errors && 'border-destructive focus-visible:ring-destructive'
           }`}
@@ -120,18 +124,18 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
         <label htmlFor="qualification">Primary qualification</label>
         <Select
           onValueChange={(value) => {
-            form.validate()
+            form.validate({ name: qualification.name })
             setSelectedQualification(value)
           }}
-          name="primaryQualification">
+          defaultValue={veterinarian?.qualification}
+          name="qualification">
           <SelectTrigger
-            className={`SelectTrigger h-10 rounded border-primary/20 bg-secondary !px-2 hover:border-primary/40 ${
-              primaryQualification.errors &&
-              'border-destructive focus-visible:ring-destructive'
+            className={`SelectTrigger h-10 rounded border-primary/20 !px-2 hover:border-primary/40 ${
+              qualification.errors && 'border-destructive focus-visible:ring-destructive'
             }`}
-            {...getSelectProps(primaryQualification)}>
+            {...getSelectProps(qualification)}>
             <SelectValue placeholder="Select your primary qualification">
-              {primaryQualification.value || selectedQualification}
+              {qualification.value || selectedQualification}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -146,9 +150,9 @@ export default function VetDetails({ lastResult }: VetDetailsProps) {
           </SelectContent>
         </Select>
 
-        {primaryQualification.errors && (
+        {qualification.errors && (
           <span className="text-sm text-destructive dark:text-destructive-foreground">
-            {primaryQualification.errors.join(' ')}
+            {qualification.errors.join(' ')}
           </span>
         )}
       </div>

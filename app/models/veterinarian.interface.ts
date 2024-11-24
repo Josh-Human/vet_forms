@@ -5,10 +5,10 @@ export const VetSchema = z.object({
     .string({ required_error: 'Please enter your name' })
     .min(3, { message: 'Name must be a least 3 characters' })
     .trim()
-    .regex(/^[a-zA-Z]+$/, {
+    .regex(/^[a-zA-Z\s]+$/, {
       message: 'Username may only contain alphanumeric characters.',
     }),
-  primaryQualification: z
+  qualification: z
     .string({ required_error: 'Please select your primary qualification' })
     .trim(),
   title: z.string({ required_error: 'Please select a title' }).trim(),

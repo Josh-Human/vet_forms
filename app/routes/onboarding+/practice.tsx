@@ -66,7 +66,7 @@ export default function OnboardingPracticeDetails() {
     },
   })
   return (
-    <div className="mx-auto flex h-full w-full max-w-96 flex-col items-center">
+    <div className="mx-auto mt-36 flex h-full w-full max-w-96 flex-col items-center">
       <div className="mb-4 flex flex-col gap-2">
         <h3 className="text-2xl font-medium text-primary">Practice details</h3>
         <p className="text-base font-normal text-primary/60">
