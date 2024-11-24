@@ -6,7 +6,7 @@ import { authenticator } from '#app/modules/auth/auth.server'
 import { cn } from '#app/utils/misc'
 import { useTheme } from '#app/utils/hooks/use-theme.js'
 import { siteConfig } from '#app/utils/constants/brand'
-import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
+import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login.$.tsx'
 import { Button, buttonVariants } from '#app/components/ui/button'
 import { ThemeSwitcherHome } from '#app/components/misc/theme-switcher'
 

@@ -4,7 +4,7 @@ import type {
   ActionFunctionArgs,
 } from '@remix-run/node'
 import { useRef, useEffect } from 'react'
-import { Form, useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData, useParams } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { useHydrated } from 'remix-utils/use-hydrated'
 import { AuthenticityTokenInput } from 'remix-utils/csrf/react'
@@ -22,12 +22,13 @@ import { siteConfig } from '#app/utils/constants/brand'
 import { Input } from '#app/components/ui/input'
 import { Button } from '#app/components/ui/button'
 import { ROUTE_PATH as DASHBOARD_PATH } from '#app/routes/dashboard+/_layout'
-import { ROUTE_PATH as AUTH_VERIFY_PATH } from '#app/routes/auth+/verify'
+import { ROUTE_PATH as AUTH_VERIFY_PATH } from '#app/routes/auth+/verify.$.tsx'
 
 export const ROUTE_PATH = '/auth/login' as const
 
 export const LoginSchema = z.object({
   email: z.string().max(256).email('Email address is not valid.'),
+  orgId: z.string().optional(),
 })
 
 export const meta: MetaFunction = () => {
@@ -53,15 +54,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   const url = new URL(request.url)
   const pathname = url.pathname
-
   const clonedRequest = request.clone()
   const formData = await clonedRequest.formData()
   await validateCSRF(formData, clonedRequest.headers)
   checkHoneypot(formData)
 
+  const orgId = formData.get('orgId')
+  const orgParam = orgId ? `/${orgId}` : ''
   await authenticator.authenticate('TOTP', request, {
-    successRedirect: AUTH_VERIFY_PATH,
-    failureRedirect: pathname,
+    successRedirect: AUTH_VERIFY_PATH + orgParam,
+    failureRedirect: pathname + orgParam,
+    context: { orgId },
   })
 }
 
@@ -70,7 +73,7 @@ export default function Login() {
   const inputRef = useRef<HTMLInputElement>(null)
   const isHydrated = useHydrated()
   const isPending = useIsPending()
-
+  const orgId = useParams()
   const [emailForm, { email }] = useForm({
     constraint: getZodConstraint(LoginSchema),
     onValidate({ formData }) {
@@ -101,7 +104,7 @@ export default function Login() {
         {/* Security */}
         <AuthenticityTokenInput />
         <HoneypotInputs />
-
+        <input hidden readOnly value={orgId['*']} name="orgId" />
         <div className="flex w-full flex-col gap-1.5">
           <label htmlFor="email" className="sr-only">
             Email
@@ -142,7 +145,7 @@ export default function Login() {
         </span>
       </div>
 
-      <Form action={`/auth/github`} method="POST" className="w-full">
+      {/* <Form action={`/auth/github`} method="POST" className="w-full">
         <Button variant="outline" className="w-full gap-2 bg-transparent">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -156,7 +159,7 @@ export default function Login() {
           </svg>
           Github
         </Button>
-      </Form>
+      </Form> */}
 
       <p className="px-12 text-center text-sm font-normal leading-normal text-primary/60">
         By clicking continue, you agree to our{' '}

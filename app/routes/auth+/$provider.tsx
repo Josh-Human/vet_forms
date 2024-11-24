@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { authenticator } from '#app/modules/auth/auth.server'
-import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
+import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login.$.tsx'
 
 export const ROUTE_PATH = '/auth/:provider' as const
 

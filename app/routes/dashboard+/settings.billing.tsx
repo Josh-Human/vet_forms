@@ -16,7 +16,7 @@ import {
 import { prisma } from '#app/utils/db.server'
 import { getLocaleCurrency } from '#app/utils/misc.server'
 import { INTENTS } from '#app/utils/constants/misc'
-import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
+import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login.$.tsx'
 import { Switch } from '#app/components/ui/switch'
 import { Button } from '#app/components/ui/button'
 

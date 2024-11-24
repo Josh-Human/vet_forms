@@ -1,12 +1,10 @@
-import type { User } from '@prisma/client'
+import type { Organisation, User } from '@prisma/client'
 import { redirect } from '@remix-run/node'
 import { Authenticator } from 'remix-auth'
 import { TOTPStrategy } from 'remix-auth-totp'
-import { GitHubStrategy } from 'remix-auth-github'
 import { authSessionStorage } from '#app/modules/auth/auth-session.server'
 // import { sendAuthEmail } from '#app/modules/email/templates/auth-email'
 import { prisma } from '#app/utils/db.server'
-import { HOST_URL } from '#app/utils/misc.server'
 import { ERRORS } from '#app/utils/constants/errors'
 import { ROUTE_PATH as LOGOUT_PATH } from '#app/routes/auth+/logout'
 import { ROUTE_PATH as MAGIC_LINK_PATH } from '#app/routes/auth+/magic-link'
@@ -21,7 +19,7 @@ authenticator.use(
     {
       secret: process.env.ENCRYPTION_SECRET || 'NOT_A_STRONG_SECRET',
       magicLinkPath: MAGIC_LINK_PATH,
-      sendTOTP: async ({ email, code, magicLink }) => {
+      sendTOTP: async ({ email, code, magicLink, context, request }) => {
         if (process.env.NODE_ENV === 'development') {
           // Development Only: Log the TOTP code.
           console.log('[ Dev-Only ] TOTP Code:', code)
@@ -32,10 +30,11 @@ authenticator.use(
             return
           }
         }
+
         // await sendAuthEmail({ email, code, magicLink })
       },
     },
-    async ({ email }) => {
+    async ({ email, context }) => {
       let user = await prisma.user.findUnique({
         where: { email },
         include: {
@@ -45,10 +44,22 @@ authenticator.use(
       })
 
       if (!user) {
+        let org: Organisation | null
+        if (!context?.orgId) {
+          org = await prisma.organisation.create({
+            data: { name: '' },
+          })
+        } else {
+          org = await prisma.organisation.findUnique({
+            where: { id: context.orgId as string },
+          })
+          if (!org) throw new Error(ERRORS.AUTH_ORG_ID_NOT_VALID)
+        }
         user = await prisma.user.create({
           data: {
             roles: { connect: [{ name: 'user' }] },
             email,
+            organisation_id: org.id,
           },
           include: {
             image: { select: { id: true } },
@@ -70,45 +81,45 @@ authenticator.use(
 /**
  * Github - Strategy.
  */
-authenticator.use(
-  new GitHubStrategy(
-    {
-      clientId: process.env.GITHUB_CLIENT_ID || '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
-      redirectURI: `${HOST_URL}/auth/github/callback`,
-    },
-    async ({ profile }) => {
-      const email = profile._json.email || profile.emails[0].value
-      let user = await prisma.user.findUnique({
-        where: { email },
-        include: {
-          image: { select: { id: true } },
-          roles: { select: { name: true } },
-        },
-      })
+// authenticator.use(
+//   new GitHubStrategy(
+//     {
+//       clientId: process.env.GITHUB_CLIENT_ID || '',
+//       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+//       redirectURI: `${HOST_URL}/auth/github/callback`,
+//     },
+//     async ({ profile }) => {
+//       const email = profile._json.email || profile.emails[0].value
+//       let user = await prisma.user.findUnique({
+//         where: { email },
+//         include: {
+//           image: { select: { id: true } },
+//           roles: { select: { name: true } },
+//         },
+//       })
 
-      if (!user) {
-        user = await prisma.user.create({
-          data: {
-            roles: { connect: [{ name: 'user' }] },
-            email,
-          },
-          include: {
-            image: { select: { id: true } },
-            roles: {
-              select: {
-                name: true,
-              },
-            },
-          },
-        })
-        if (!user) throw new Error(ERRORS.AUTH_USER_NOT_CREATED)
-      }
+//       if (!user) {
+//         user = await prisma.user.create({
+//           data: {
+//             roles: { connect: [{ name: 'user' }] },
+//             email,
+//           },
+//           include: {
+//             image: { select: { id: true } },
+//             roles: {
+//               select: {
+//                 name: true,
+//               },
+//             },
+//           },
+//         })
+//         if (!user) throw new Error(ERRORS.AUTH_USER_NOT_CREATED)
+//       }
 
-      return user
-    },
-  ),
-)
+//       return user
+//     },
+//   ),
+// )
 
 /**
  * Utilities.

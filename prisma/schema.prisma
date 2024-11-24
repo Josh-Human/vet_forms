@@ -18,6 +18,8 @@ model User {
   id           String        @id @default(cuid())
   email        String        @unique
   username     String?       @unique
+  organisation Organisation @relation(fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  organisation_id String
   image        UserImage?
   customerId   String?       @unique
   subscription Subscription?
@@ -129,6 +131,48 @@ model Veterinarian {
   title String
   qualification String
 
+  practice Practice? @relation(fields: [practice_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  practice_id Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactDetails {
+  id     Int @id @default(autoincrement())
+
+  address_line_one String
+  address_line_two String?
+  town_or_city String
+  county String?
+  postcode String
+  phonenumber String
+
+  practice Practice?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Practice {
+  id     Int @id @default(autoincrement())
+  contact_details   ContactDetails   @relation(fields: [contact_details_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contact_details_id Int @unique
+  
+  organisation Organisation @relation(fields: [organisation_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  organisation_id String
+  
+  veterinarians Veterinarian[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Organisation {
+  id     String @id @default(uuid())
+  name String
+  users User[]
+  practices Practice[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

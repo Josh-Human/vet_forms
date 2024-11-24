@@ -40,11 +40,18 @@ async function seed() {
       },
     },
   })
+
+  const adminOrg = await prisma.organisation.create({
+    select: { id: true },
+    data: { name: 'Admin Organisation' },
+  })
+
   await prisma.user.create({
     select: { id: true },
     data: {
       email: 'admin@admin.com',
       username: 'admin@admin.com',
+      organisation_id: adminOrg.id,
       roles: { connect: [{ name: 'admin' }, { name: 'user' }] },
     },
   })

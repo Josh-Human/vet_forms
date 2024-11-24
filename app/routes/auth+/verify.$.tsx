@@ -4,7 +4,7 @@ import type {
   ActionFunctionArgs,
 } from '@remix-run/node'
 import { useRef, useEffect } from 'react'
-import { Form, useLoaderData } from '@remix-run/react'
+import { Form, useLoaderData, useParams } from '@remix-run/react'
 import { json, redirect } from '@remix-run/node'
 import { useHydrated } from 'remix-utils/use-hydrated'
 import { AuthenticityTokenInput } from 'remix-utils/csrf/react'
@@ -25,6 +25,7 @@ export const ROUTE_PATH = '/auth/verify' as const
 
 export const VerifyLoginSchema = z.object({
   code: z.string().min(6, 'Code must be at least 6 characters.'),
+  orgId: z.string().optional(),
 })
 
 export const meta: MetaFunction = () => {
@@ -57,10 +58,12 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await clonedRequest.formData()
   await validateCSRF(formData, clonedRequest.headers)
   checkHoneypot(formData)
+  const orgId = formData.get('orgId')
 
   await authenticator.authenticate('TOTP', request, {
     successRedirect: pathname,
     failureRedirect: pathname,
+    context: { orgId },
   })
 }
 
@@ -68,6 +71,7 @@ export default function Verify() {
   const { authEmail, authError } = useLoaderData<typeof loader>()
   const inputRef = useRef<HTMLInputElement>(null)
   const isHydrated = useHydrated()
+  const orgId = useParams()
 
   const [codeForm, { code }] = useForm({
     constraint: getZodConstraint(VerifyLoginSchema),
@@ -98,6 +102,7 @@ export default function Verify() {
         {...getFormProps(codeForm)}>
         <AuthenticityTokenInput />
         <HoneypotInputs />
+        <input hidden readOnly value={orgId['*']} name="orgId" />
 
         <div className="flex w-full flex-col gap-1.5">
           <label htmlFor="code" className="sr-only">

@@ -9,7 +9,7 @@ import { requireSessionUser, requireUser } from '#app/modules/auth/auth.server'
 
 import { validateCSRF } from '#app/utils/csrf.server'
 import { checkHoneypot } from '#app/utils/honeypot.server'
-import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
+import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login.$.tsx'
 import VetDetails from '#app/components/forms/vet-details.tsx'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { IVet } from '#app/models/veterinarian.interface.ts'
@@ -70,7 +70,7 @@ export default function OnboardingVetDetails() {
   const { vet } = useLoaderData<typeof loader>()
 
   return (
-    <div className="mx-auto mt-36 flex h-full w-full max-w-96 flex-col items-center">
+    <div className="mx-auto mt-16 flex h-full w-full max-w-96 flex-col items-center">
       <div className="mb-4 flex flex-col gap-2">
         <h3 className="text-2xl font-medium text-primary">Veterinarian details</h3>
         <p className="text-base font-normal text-primary/60">

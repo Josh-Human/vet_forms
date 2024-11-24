@@ -3,8 +3,12 @@ export const ERRORS = {
   AUTH_EMAIL_NOT_SENT: 'Unable to send email.',
   AUTH_USER_NOT_CREATED: 'Unable to create user.',
   AUTH_SOMETHING_WENT_WRONG: 'Something went wrong while trying to authenticate.',
+  AUTH_ORG_ID_NOT_VALID:
+    'Something went wrong. Please make sure you followed the correct link.',
+
   // Onboarding.
   ONBOARDING_USERNAME_ALREADY_EXISTS: 'Username already exists.',
+
   ONBOARDING_SOMETHING_WENT_WRONG: 'Something went wrong while trying to onboard.',
   // Stripe.
   STRIPE_MISSING_SIGNATURE: 'Unable to verify webhook signature.',

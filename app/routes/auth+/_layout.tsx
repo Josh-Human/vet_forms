@@ -3,7 +3,7 @@ import { Outlet } from '@remix-run/react'
 import { json, redirect } from '@remix-run/node'
 import { authenticator } from '#app/modules/auth/auth.server'
 import { getDomainPathname } from '#app/utils/misc.server'
-import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login'
+import { ROUTE_PATH as LOGIN_PATH } from '#app/routes/auth+/login.$.tsx'
 import { ROUTE_PATH as DASHBOARD_PATH } from '#app/routes/dashboard+/_layout'
 import Layout from '#app/components/side-image.tsx'
 
