@@ -44,7 +44,7 @@ async function seed() {
     select: { id: true },
     data: {
       email: 'admin@admin.com',
-      username: 'admin',
+      username: 'admin@admin.com',
       roles: { connect: [{ name: 'admin' }, { name: 'user' }] },
     },
   })
